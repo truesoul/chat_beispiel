@@ -1,12 +1,15 @@
 #!/bin/env node
 //  OpenShift sample Node application
-var express = require('express');
-var fs      = require('fs');
-var http = require('http');
+var express    = require('express');
+var fs         = require('fs');
+var http       = require('http');
+var jwt        = require("jsonwebtoken");
+var bodyParser = require("body-parser");
 
 var SampleApp = function() {
 
   var self = this;
+  self.users = [];
 
   self.setupVariables = function() {
     self.ipaddress = process.env.OPENSHIFT_NODEJS_IP;
@@ -75,11 +78,6 @@ var SampleApp = function() {
   self.createRoutes = function() {
     self.routes = { };
 
-    self.routes['/asciimo'] = function(req, res) {
-      var link = "http://i.imgur.com/kmbjB.png";
-      res.send("<html><body><img src='" + link + "'></body></html>");
-    };
-
     self.routes['/'] = function(req, res) {
       res.setHeader('Content-Type', 'text/html');
       res.send(self.cache_get('index.html') );
@@ -106,10 +104,54 @@ var SampleApp = function() {
 
     self.app.use('/public', express.static(__dirname + '/public'));
 
+    self.app.use(bodyParser.urlencoded({ extended: true }));
+    self.app.use(bodyParser.json());
+
     //  Add handlers for the app (from the routes).
     for (var r in self.routes) {
       self.app.get(r, self.routes[r]);
     }
+
+    self.app.post('/login', function(req, res){
+      if(res){
+        var body = req.body;
+
+        if(body.username && body.password){
+          var token = jwt.sign(body, 'HS256');
+
+          self.users.push({token: token, user: body});
+          res.status(200).send({token: token});
+        } else {
+          res.status(403).send("Du kommst hier nicht rein!");
+        }
+      }
+    });
+
+    self.app.post('/logout', function(req, res){
+      if(res){
+        var body = req.body;
+
+        if(body.token){
+          var isLogout = false;
+
+          for(var i = 0; i < self.users.length;i++){
+            if(self.users[i].token == body.token){
+              self.users.splice(i, 1);
+              i = self.users.length;
+              isLogout = true;
+            }
+          }
+
+          if(isLogout){
+            res.status(200).send("Success");
+          } else {
+            res.status(200).send("No User found");
+          }
+        } else {
+          res.status(403).send("Du kommst hier nicht rein!");
+        }
+      }
+    });
   };
 
 

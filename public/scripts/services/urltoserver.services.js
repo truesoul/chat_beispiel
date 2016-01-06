@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    app.factory('UrlToServerServices', urlToServerServices);
+    app.factory('UrlToServerService', urlToServerServices);
 
     function urlToServerServices($http, $timeout, UtilService) {
         var callback;

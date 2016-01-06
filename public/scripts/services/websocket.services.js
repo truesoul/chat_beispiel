@@ -3,16 +3,16 @@
 
     app.factory('WebSocketService', webSocketService);
 
-    webSocketService.$inject = ['ChatService', 'UrlToServerServices'];
+    webSocketService.$inject = ['ChatService', 'UrlToServerService'];
 
-    function webSocketService(ChatService, UrlToServerServices) {
+    function webSocketService(ChatService, UrlToServerService) {
         var ws = null;
         var key = null;
         var isOpen = false;
 
         var service = {
             connect: function (){
-                ws = new WebSocket(UrlToServerServices.getUrlFromWebSocket());
+                ws = new WebSocket(UrlToServerService.getUrlFromWebSocket());
                 ws.onopen = function(data){
                     console.log("Socket has been opened!");
                     isOpen = true;

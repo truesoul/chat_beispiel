@@ -12,6 +12,7 @@
 </head>
 <body>
 
+    <logout-directive></logout-directive>
     <div ng-view></div>
 
     <script src="public/bower_components/angular/angular.js"></script>
@@ -25,18 +26,21 @@
 
     <!-- Controller -->
     <script src="public/scripts/controller/chat.controller.js"></script>
+    <script src="public/scripts/controller/login.controller.js"></script>
 
     <!-- Core -->
     <script src="public/scripts/core/chat.routes.js"></script>
 
     <!-- Directive -->
     <script src="public/scripts/directive/text-area.directive.js"></script>
+    <script src="public/scripts/directive/logout.directive.js"></script>
 
     <!-- Services -->
     <script src="public/scripts/services/chat.services.js"></script>
     <script src="public/scripts/services/util.services.js"></script>
     <script src="public/scripts/services/urltoserver.services.js"></script>
     <script src="public/scripts/services/websocket.services.js"></script>
+    <script src="public/scripts/services/login.services.js"></script>
 
 </body>
 </html>
