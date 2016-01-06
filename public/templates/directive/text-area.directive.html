@@ -1,0 +1,15 @@
+<div>
+    <div id="textArea" style="max-width: 400px;height: 400px;border: 1px solid black"></div>
+
+    <div>
+        <label for="color-selection">Farbe:</label>
+        <input id="color-selection" type="color" data-ng-model="selectedColor">
+    </div>
+
+    <div class="input-area">
+        <label for="inputText">Nachricht:</label>
+        <input id="inputText" type="text" data-ng-model="inputText" >
+        <input type="button" data-ng-click="onSend()" value="Senden">
+    </div>
+
+</div>

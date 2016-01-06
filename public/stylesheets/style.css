@@ -7,6 +7,15 @@ a {
   color: #00B7FF;
 }
 
-.input-area{
+.input-area,.color-area{
   padding-top: 10px;
+}
+
+#textArea {
+  max-width: 400px;
+  max-height: 200px;
+  width: 400px;
+  height: 200px;
+  border: 1px solid black;
+  overflow: auto;
 }
