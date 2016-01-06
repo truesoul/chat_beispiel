@@ -3,7 +3,9 @@
 
     app.directive('textAreaDirective', textAreaDirective);
 
-    function textAreaDirective() {
+    textAreaDirective.$inject = ['ChatService'];
+
+    function textAreaDirective(ChatService) {
         return {
             restrict: 'E',
             templateUrl: './public/templates/directive/text-area.directive.html',
@@ -15,21 +17,21 @@
                     $scope.inputText = '';
                 }
 
-                function isEmpty(value){
-                    return value !== null && value !== undefined && value.toString().trim().length == 0
-                }
-
-                function createElementInDiv(){
+                function createElementInDiv(input, color){
                     var area = document.getElementById("textArea");
                     var span = document.createElement("span");
-                    span.style.color = $scope.selectedColor;
-                    var node = document.createTextNode($scope.inputText);
+                    span.style.color = color;
+                    var node = document.createTextNode(input);
                     var br = document.createElement("br");
 
                     span.appendChild(node);
                     span.appendChild(br);
                     area.appendChild(span);
+                    clearInput();
                 }
+
+
+                ChatService.onCallback(createElementInDiv);
 
                 function scrollToBottom(){
                     var area = document.getElementById("textArea");
@@ -37,13 +39,8 @@
                 }
 
                 $scope.onSend = function () {
-                    if(!isEmpty($scope.inputText)){
-                        createElementInDiv();
-                        scrollToBottom();
-                    }
-                    clearInput();
+                    ChatService.send($scope.inputText, $scope.selectedColor);
                 }
-
             }
         }
     };

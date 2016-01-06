@@ -3,9 +3,11 @@
 
     app.controller('ChatController', chatController);
 
-    chatController.$inject = ['$scope'];
+    chatController.$inject = ['$scope', 'WebSocketService'];
 
-    function chatController($scope) {
+    function chatController($scope, WebSocketService) {
         $scope.room = "Mein Chat";
+        //WebSocketService.connect();
+
     };
 })();
