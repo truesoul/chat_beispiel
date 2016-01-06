@@ -6,6 +6,8 @@ var http       = require('http');
 var jwt        = require("jsonwebtoken");
 var bodyParser = require("body-parser");
 
+var USERS      = require("./scripts/Users.js");
+
 var SampleApp = function() {
 
   var self = this;
@@ -85,21 +87,14 @@ var SampleApp = function() {
 
     self.routes['/isauth'] = function(req, res) {
       var token = req.headers.authorization;
-      var exists = false;
 
-      for(var i = 0; i < self.users.length;i++){
-        if(self.users[i].token == token){
-          i = self.users.length;
-          exists = true;
+      USERS.findToken(token, function (exists) {
+        if(exists){
+          res.status(200).send("ok");
+        } else {
+          res.status(403).send("Forbidden");
         }
-      }
-
-      if(exists){
-        res.status(200).send("ok");
-      } else {
-        res.status(403).send("Forbidden");
-      }
-
+      });
     };
   };
 
@@ -138,8 +133,12 @@ var SampleApp = function() {
         if(body.username && body.password){
           var token = jwt.sign(body, 'HS256');
 
-          self.users.push({token: token, user: body});
-          res.status(200).send({token: token});
+          USERS.addToUsers({token: token, user: body}, function () {
+            res.status(200).send({token: token});
+          },function () {
+            res.status(403).send("Error on Server");
+          });
+
         } else {
           res.status(403).send("Du kommst hier nicht rein!");
         }
@@ -151,21 +150,12 @@ var SampleApp = function() {
         var body = req.body;
 
         if(body.token){
-          var isLogout = false;
-
-          for(var i = 0; i < self.users.length;i++){
-            if(self.users[i].token == body.token){
-              self.users.splice(i, 1);
-              i = self.users.length;
-              isLogout = true;
-            }
-          }
-
-          if(isLogout){
+          USERS.removeUserByToken(body.token, function () {
             res.status(200).send("Success");
-          } else {
+          },function () {
             res.status(200).send("No User found");
-          }
+          });
+
         } else {
           res.status(403).send("Du kommst hier nicht rein!");
         }
