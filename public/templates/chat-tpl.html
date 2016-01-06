@@ -1,0 +1,9 @@
+<h3>{{room}}</h3>
+
+<textarea cols="50" rows="10" data-ng-model="textArea" readonly></textarea>
+
+<div class="input-area">
+    <label for="inputText">Nachricht:</label>
+    <input id="inputText" type="text" data-ng-model="inputText" >
+    <input type="button" data-ng-click="onSend()" value="Senden">
+</div>
