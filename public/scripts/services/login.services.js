@@ -21,6 +21,7 @@
                 request.success(function (data) {
                     if(data && data.token){
                         token = data.token;
+                        localStorage.setItem("token", token);
                     }
 
                     if(success){
@@ -44,6 +45,7 @@
 
                 request.success(function (data) {
                     token = null;
+                    localStorage.removeItem("token");
                     if(success){
                         success();
                     }
@@ -58,6 +60,7 @@
             isLogin: function () {
                 return token !== null && token !== undefined;
             }
+
         };
         return service;
     };

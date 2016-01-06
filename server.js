@@ -82,6 +82,25 @@ var SampleApp = function() {
       res.setHeader('Content-Type', 'text/html');
       res.send(self.cache_get('index.html') );
     };
+
+    self.routes['/isauth'] = function(req, res) {
+      var token = req.headers.authorization;
+      var exists = false;
+
+      for(var i = 0; i < self.users.length;i++){
+        if(self.users[i].token == token){
+          i = self.users.length;
+          exists = true;
+        }
+      }
+
+      if(exists){
+        res.status(200).send("ok");
+      } else {
+        res.status(403).send("Forbidden");
+      }
+
+    };
   };
 
 
@@ -97,7 +116,7 @@ var SampleApp = function() {
     self.app.use(function(req, res, next) {
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization, reset_token');
+      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
 
       next();
     });
