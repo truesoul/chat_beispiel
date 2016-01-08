@@ -6,8 +6,6 @@
     loginServices.$inject = ['$http', 'UrlToServerService'];
 
     function loginServices($http, UrlToServerService) {
-        var callback;
-
         var service = {
             login: function (username, password, success, error){
                 var request = $http({
