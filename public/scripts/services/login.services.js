@@ -59,7 +59,7 @@
             }
             ,
             isLogin: function () {
-                return token !== null && token !== undefined;
+                return localStorage.getItem("token") !== null && localStorage.getItem("token") !== undefined;
             }
 
         };
