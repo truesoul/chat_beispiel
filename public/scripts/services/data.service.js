@@ -6,22 +6,24 @@
     dataService.$inject = ['$http', 'UrlToServerService'];
 
     function dataService($http, UrlToServerService) {
-        var user = [];
+        var users = [];
 
         var service = {
-            loadUserData: function (callback){
+            loadUserData: function (){
                 $http.get(UrlToServerService.getUrlFromServer()+"/alluser").
-                    success(function(result, status, headers, config) {
-                        if(result.data){
-                            callback(result.data);
-                        }else {
-                            callback([]);
-                        }
+                success(function(result, status, headers, config) {
+                    if(result.data){
+                        users = result.data;
+                    }
 
                 }).
-                    error(function(result, status, headers, config) {
-                        callback([]);
+                error(function(result, status, headers, config) {
+
                 });
+            }
+            ,
+            getAllUser: function () {
+                return users;
             }
         };
         return service;

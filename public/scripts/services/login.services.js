@@ -3,9 +3,9 @@
 
     app.factory('LoginService', loginServices);
 
-    loginServices.$inject = ['$http', 'UrlToServerService'];
+    loginServices.$inject = ['$http', 'UrlToServerService', 'DataService'];
 
-    function loginServices($http, UrlToServerService) {
+    function loginServices($http, UrlToServerService, DataService) {
         var service = {
             login: function (username, password, success, error){
                 var request = $http({
@@ -18,6 +18,7 @@
                 request.success(function (data) {
                     if(data && data.token){
                         localStorage.setItem("token", data.token);
+                        DataService.loadUserData();
                     }
 
                     if(success){
@@ -41,12 +42,14 @@
 
                 request.success(function (data) {
                     localStorage.removeItem("token");
+                    DataService.loadUserData();
                     if(success){
                         success();
                     }
                 });
                 request.error(function (data, status, headers, config) {
                     localStorage.removeItem("token");
+                    DataService.loadUserData();
                     if(error){
                         error();
                     }
