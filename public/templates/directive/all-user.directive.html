@@ -5,7 +5,8 @@
             <input type="text" data-ng-model="query">
         </td>
     </tr>
-    <tr data-ng-repeat="user in allusers | filter:query track by $index">
+
+    <tr data-ng-repeat="user in allusers() | filter:query track by $index">
         <td>{{user}}</td>
     </tr>
 </table>
