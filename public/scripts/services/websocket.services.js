@@ -34,8 +34,8 @@
                             }
                         } else {
                             if(key != obj.key){
-                                if(obj.command == 'addComment'){
-                                    ChatService.setInput(obj.data.message, obj.data.color);
+                                if(obj.command == 'addcomment'){
+                                    ChatService.setInput(obj.data.user+": "+obj.data.message, obj.data.color);
                                 } else if(obj.command == 'addUser' || obj.command == 'removeUser'){
                                     DataService.loadUserData();
                                 }

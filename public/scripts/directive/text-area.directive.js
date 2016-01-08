@@ -27,7 +27,6 @@
                     span.appendChild(node);
                     span.appendChild(br);
                     area.appendChild(span);
-                    clearInput();
                 }
 
 
@@ -40,6 +39,7 @@
 
                 $scope.onSend = function () {
                     ChatService.send($scope.inputText, $scope.selectedColor);
+                    clearInput();
                 }
             }
         }

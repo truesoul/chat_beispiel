@@ -3,15 +3,27 @@
 
     app.factory('ChatService', chatService);
 
-    chatService.$inject = ['$http', '$timeout', 'UtilService'];
+    chatService.$inject = ['$http', '$timeout', 'UtilService','UrlToServerService'];
 
-    function chatService($http, $timeout, UtilService) {
+    function chatService($http, $timeout, UtilService,UrlToServerService) {
         var callback;
 
         var service = {
             send: function (input, color){
                 if(!UtilService.isStringEmpty(input)){
-                    service.setInput(input, color);
+                    var request = $http({
+                        method: "post",
+                        url: UrlToServerService.getUrlFromServer()+"/addcomment",
+                        data: {token: localStorage.getItem("token"), message: input, color: color},
+                        headers: {'Content-Type': 'application/json; charset=UTF-8'}
+                    });
+
+                    request.success(function (data) {
+
+                    });
+                    request.error(function (data, status, headers, config) {
+
+                    });
                 }
             }
             ,

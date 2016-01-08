@@ -169,6 +169,23 @@ var SampleApp = function() {
       }
     });
 
+    self.app.post('/addcomment', function(req, res){
+      if(res){
+        var body = req.body;
+        if(body.token){
+          USERS.findByToken(body.token, function (data) {
+            var result = {command: 'addcomment', data: {user: data, message: body.message, color: body.color}};
+            self.sendToAll(JSON.stringify(result));
+            res.status(200).send("Success");
+          },function (data) {
+            res.status(200).send("No User found");
+          });
+        } else {
+          res.status(200).send("No User found");
+        }
+      }
+    });
+
     self.server = http.createServer(self.app);
   };
 
