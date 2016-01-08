@@ -20,7 +20,7 @@
 
                 $scope.logout = function () {
                     LoginService.logout(callback, callback);
-                }
+                };
             }
         }
     };

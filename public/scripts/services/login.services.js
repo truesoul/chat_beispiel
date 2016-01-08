@@ -3,9 +3,9 @@
 
     app.factory('LoginService', loginServices);
 
-    loginServices.$inject = ['$http', 'UrlToServerService'];
+    loginServices.$inject = ['$http', 'UrlToServerService', 'DataService'];
 
-    function loginServices($http, UrlToServerService) {
+    function loginServices($http, UrlToServerService, DataService) {
         var callback;
         var token = null;
 
@@ -22,6 +22,7 @@
                     if(data && data.token){
                         token = data.token;
                         localStorage.setItem("token", token);
+                        DataService.loadUserData();
                     }
 
                     if(success){

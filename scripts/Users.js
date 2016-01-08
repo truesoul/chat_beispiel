@@ -27,7 +27,7 @@ module.exports = {
     getAllUser: function () {
         var usernames = [];
         for(var i = 0; i < Users.length;i++){
-            usernames.push(Users[i].username);
+            usernames.push(Users[i].user.username);
         }
         return usernames;
     }

@@ -96,6 +96,11 @@ var SampleApp = function() {
         }
       });
     };
+
+    self.routes['/alluser'] = function(req, res) {
+      var user = USERS.getAllUser();
+      res.status(200).send({data: user});
+    };
   };
 
 
