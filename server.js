@@ -140,6 +140,8 @@ var SampleApp = function() {
 
           USERS.addToUsers({token: token, user: body}, function () {
             res.status(200).send({token: token});
+            var result = {command: 'addUser' ,data: {user:body}};
+            self.sendToAll(JSON.stringify(result));
           },function () {
             res.status(403).send("Error on Server");
           });
@@ -156,6 +158,8 @@ var SampleApp = function() {
         if(body.token){
           USERS.removeUserByToken(body.token, function () {
             res.status(200).send("Success");
+            var result = {command: 'removeUser'};
+            self.sendToAll(JSON.stringify(result));
           },function () {
             res.status(200).send("No User found");
           });
@@ -164,6 +168,8 @@ var SampleApp = function() {
         }
       }
     });
+
+    self.server = http.createServer(self.app);
   };
 
 
@@ -179,20 +185,42 @@ var SampleApp = function() {
     self.initializeServer();
   };
 
+  self.createWebSocket = function () {
+    var WebSocketServer = require('ws').Server;
+    self.wss = new WebSocketServer({
+      server: self.server,
+      autoAcceptConnections: false
+    });
+    self.wss.on('connection', function(ws) {
+      console.log("New connection");
+      ws.on('message', function(message) {
+        self.sendToAll(message);
+      });
+      ws.send(JSON.stringify({key: ws.upgradeReq.headers['sec-websocket-key']}));
+    });
 
-  /**
-   *  Start the server (starts up the sample application).
-   */
+    self.wss.broadcast = function broadcast(data) {
+      self.wss.clients.forEach(function each(client) {
+        data.key = client.upgradeReq.headers['sec-websocket-key'];
+        client.send(data);
+      });
+    };
+  };
+
+  self.sendToAll = function (data) {
+    self.wss.broadcast(data);
+  };
+
   self.start = function() {
     process.on('uncaughtException', function(ex) {
       console.log("EXCEPTION");
       console.log(ex);
     });
 
-    self.app.listen(self.port, self.ipaddress, function() {
-      console.log('%s: Node server started on %s:%d ...',
-          Date(Date.now() ), self.ipaddress, self.port);
+    self.server.listen( self.port, self.ipaddress, function() {
+      console.log((new Date()) + ' Server is listening on port 8080');
     });
+    self.createWebSocket();
   };
 
 };   /*  Sample Application.  */

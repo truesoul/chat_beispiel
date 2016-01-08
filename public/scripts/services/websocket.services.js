@@ -3,15 +3,16 @@
 
     app.factory('WebSocketService', webSocketService);
 
-    webSocketService.$inject = ['ChatService', 'UrlToServerService'];
+    webSocketService.$inject = ['ChatService', 'UrlToServerService', 'DataService'];
 
-    function webSocketService(ChatService, UrlToServerService) {
+    function webSocketService(ChatService, UrlToServerService, DataService) {
         var ws = null;
         var key = null;
         var isOpen = false;
 
         var service = {
             connect: function (){
+                service.disconnect();
                 ws = new WebSocket(UrlToServerService.getUrlFromWebSocket());
                 ws.onopen = function(data){
                     console.log("Socket has been opened!");
@@ -33,7 +34,11 @@
                             }
                         } else {
                             if(key != obj.key){
-                                ChatService.setInput(obj.message, obj.color);
+                                if(obj.command == 'addComment'){
+                                    ChatService.setInput(obj.data.message, obj.data.color);
+                                } else if(obj.command == 'addUser' || obj.command == 'removeUser'){
+                                    DataService.loadUserData();
+                                }
                             }
                         }
                     }

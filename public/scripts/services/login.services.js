@@ -3,9 +3,9 @@
 
     app.factory('LoginService', loginServices);
 
-    loginServices.$inject = ['$http', 'UrlToServerService', 'DataService'];
+    loginServices.$inject = ['$http', 'UrlToServerService', 'DataService', 'WebSocketService'];
 
-    function loginServices($http, UrlToServerService, DataService) {
+    function loginServices($http, UrlToServerService, DataService, WebSocketService) {
         var service = {
             login: function (username, password, success, error){
                 var request = $http({
@@ -19,6 +19,7 @@
                     if(data && data.token){
                         localStorage.setItem("token", data.token);
                         DataService.loadUserData();
+                        WebSocketService.connect();
                     }
 
                     if(success){
@@ -43,6 +44,7 @@
                 request.success(function (data) {
                     localStorage.removeItem("token");
                     DataService.loadUserData();
+                    WebSocketService.disconnect();
                     if(success){
                         success();
                     }
@@ -50,6 +52,7 @@
                 request.error(function (data, status, headers, config) {
                     localStorage.removeItem("token");
                     DataService.loadUserData();
+                    WebSocketService.disconnect();
                     if(error){
                         error();
                     }
