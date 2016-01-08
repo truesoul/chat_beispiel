@@ -32,14 +32,14 @@ module.exports = {
         return usernames;
     }
     ,
-    findToken: function (token, callback) {
-        var exists = false;
+    findByToken: function (token, callback) {
+        var user = null;
         for(var i = 0; i < Users.length;i++){
             if(Users[i].token == token){
-                exists = true;
+                user = Users[i].user.username;
                 break;
             }
         }
-        callback(exists);
+        callback(user);
     }
 };

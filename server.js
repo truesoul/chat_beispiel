@@ -88,8 +88,8 @@ var SampleApp = function() {
     self.routes['/isauth'] = function(req, res) {
       var token = req.headers.authorization;
 
-      USERS.findToken(token, function (exists) {
-        if(exists){
+      USERS.findByToken(token, function (data) {
+        if(data){
           res.status(200).send("ok");
         } else {
           res.status(403).send("Forbidden");
