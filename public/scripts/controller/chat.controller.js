@@ -3,15 +3,9 @@
 
     app.controller('ChatController', chatController);
 
-    chatController.$inject = ['$scope', 'WebSocketService', 'DataService'];
+    chatController.$inject = ['$scope', 'DataService'];
 
-    function chatController($scope, WebSocketService, DataService) {
+    function chatController($scope, DataService) {
         $scope.room = "Mein Chat";
-        $scope.users = function () {
-            return DataService.getAllUser();
-        };
-
-        //WebSocketService.connect();
-
     };
 })();
