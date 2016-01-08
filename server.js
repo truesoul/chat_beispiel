@@ -153,16 +153,14 @@ var SampleApp = function() {
     self.app.post('/logout', function(req, res){
       if(res){
         var body = req.body;
-
         if(body.token){
           USERS.removeUserByToken(body.token, function () {
             res.status(200).send("Success");
           },function () {
             res.status(200).send("No User found");
           });
-
         } else {
-          res.status(403).send("Du kommst hier nicht rein!");
+          res.status(200).send("No User found");
         }
       }
     });

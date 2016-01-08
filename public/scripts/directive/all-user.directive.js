@@ -10,9 +10,9 @@
             restrict: 'E',
             templateUrl: './public/templates/directive/all-user.directive.html',
             controller: function ($scope) {
-                $scope.allusers = function () {
-                    return DataService.getAllUser();
-                }
+                DataService.loadUserData(function (data) {
+                    $scope.allusers = data;
+                })
             }
         }
     };

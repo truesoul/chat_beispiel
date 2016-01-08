@@ -9,18 +9,19 @@
         var user = [];
 
         var service = {
-            loadUserData: function (){
+            loadUserData: function (callback){
                 $http.get(UrlToServerService.getUrlFromServer()+"/alluser").
                     success(function(result, status, headers, config) {
-                        user = result.data;
+                        if(result.data){
+                            callback(result.data);
+                        }else {
+                            callback([]);
+                        }
+
                 }).
                     error(function(result, status, headers, config) {
-
+                        callback([]);
                 });
-            }
-            ,
-            getAllUser: function () {
-                return user;
             }
         };
         return service;

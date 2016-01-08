@@ -1,6 +1,11 @@
 <h3>Alle angemeldeten Benutzer:</h3>
 <table>
-    <tr ng-repeat="user in allusers() track by $index">
+    <tr>
+        <td>
+            <input type="text" data-ng-model="query">
+        </td>
+    </tr>
+    <tr data-ng-repeat="user in allusers | filter:query track by $index">
         <td>{{user}}</td>
     </tr>
 </table>
