@@ -138,10 +138,6 @@ var SampleApp = function() {
   };
 
 
-  /**
-   *  Initialize the server (express) and create the routes and register
-   *  the handlers.
-   */
   self.initializeServer = function() {
     self.app = express();
     self.app.use(bodyParser.urlencoded({ extended: true }));
