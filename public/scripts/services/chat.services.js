@@ -3,9 +3,9 @@
 
     app.factory('ChatService', chatService);
 
-    chatService.$inject = ['$http', '$timeout', 'UtilService'];
+    chatService.$inject = ['$http', 'UtilService'];
 
-    function chatService($http, $timeout, UtilService) {
+    function chatService($http, UtilService) {
         var callback;
 
         var service = {
