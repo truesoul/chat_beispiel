@@ -22,19 +22,8 @@ var SampleApp = function() {
     };
   };
 
-  self.populateCache = function() {
-    self.zcache = {'index.html':fs.readFileSync('./index.html')};
-  };
-
-  self.cache_get = function(key) { return self.zcache[key]; };
-
   self.createRoutes = function() {
     self.routes = { };
-
-    self.routes['/'] = function(req, res) {
-      res.setHeader('Content-Type', 'text/html');
-      res.send(self.cache_get('index.html') );
-    };
 
     self.routes['/isauth'] = function(req, res) {
       var token = req.headers.authorization;
@@ -154,8 +143,6 @@ var SampleApp = function() {
 
   self.initialize = function() {
     self.setupVariables();
-    self.populateCache();
-
     self.initializeServer();
   };
 
