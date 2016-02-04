@@ -3,7 +3,7 @@
 
     app.factory('UrlToServerServices', urlToServerServices);
 
-    function urlToServerServices($http, $timeout, UtilService) {
+    function urlToServerServices() {
         var callback;
 
         var service = {
