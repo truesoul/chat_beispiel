@@ -21,60 +21,12 @@ var SampleApp = function() {
     };
   };
 
-
-  /**
-   *  Populate the cache.
-   */
   self.populateCache = function() {
     self.zcache = {'index.html':fs.readFileSync('./index.html')};
   };
 
-
-  /**
-   *  Retrieve entry (content) from cache.
-   *  @param {string} key  Key identifying content to retrieve from cache.
-   */
   self.cache_get = function(key) { return self.zcache[key]; };
 
-
-  /**
-   *  terminator === the termination handler
-   *  Terminate server on receipt of the specified signal.
-   *  @param {string} sig  Signal to terminate on.
-   */
-  self.terminator = function(sig){
-    if (typeof sig === "string") {
-      console.log('%s: Received %s - terminating sample app ...',
-          Date(Date.now()), sig);
-      process.exit(1);
-    }
-    console.log('%s: Node server stopped.', Date(Date.now()) );
-  };
-
-
-  /**
-   *  Setup termination handlers (for exit and a list of signals).
-   */
-  self.setupTerminationHandlers = function(){
-    //  Process on exit and signals.
-    process.on('exit', function() { self.terminator(); });
-
-    // Removed 'SIGPIPE' from the list - bugz 852598.
-    ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
-      'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
-    ].forEach(function(element, index, array) {
-      process.on(element, function() { self.terminator(element); });
-    });
-  };
-
-
-  /*  ================================================================  */
-  /*  App server functions (main app logic here).                       */
-  /*  ================================================================  */
-
-  /**
-   *  Create the routing table entries + handlers for the application.
-   */
   self.createRoutes = function() {
     self.routes = { };
 
@@ -101,37 +53,10 @@ var SampleApp = function() {
       }
 
     };
-  };
 
+    self.post_routes = { };
 
-  /**
-   *  Initialize the server (express) and create the routes and register
-   *  the handlers.
-   */
-  self.initializeServer = function() {
-    self.createRoutes();
-    self.app = express();
-
-    // Setze Header : Access-Control-Allow-Origin * erlaubt alle Anfrage von außen
-    self.app.use(function(req, res, next) {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-
-      next();
-    });
-
-    self.app.use('/public', express.static(__dirname + '/public'));
-
-    self.app.use(bodyParser.urlencoded({ extended: true }));
-    self.app.use(bodyParser.json());
-
-    //  Add handlers for the app (from the routes).
-    for (var r in self.routes) {
-      self.app.get(r, self.routes[r]);
-    }
-
-    self.app.post('/login', function(req, res){
+    self.post_routes['/login'] = function(req, res){
       if(res){
         var body = req.body;
 
@@ -144,9 +69,9 @@ var SampleApp = function() {
           res.status(403).send("Du kommst hier nicht rein!");
         }
       }
-    });
+    };
 
-    self.app.post('/logout', function(req, res){
+    self.post_routes['/logout'] = function(req, res){
       if(res){
         var body = req.body;
 
@@ -170,26 +95,54 @@ var SampleApp = function() {
           res.status(403).send("Du kommst hier nicht rein!");
         }
       }
+    };
+  };
+
+  self.setHeader = function(){
+    self.app.use(function(req, res, next) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization, reset_token');
+
+      next();
     });
   };
 
+  self.setPublic = function(){
+    self.app.use('/public', express.static(__dirname + '/public'));
+  };
 
-  /**
-   *  Initializes the sample application.
-   */
+  self.setGet = function(){
+    for (var r in self.routes) {
+      self.app.get(r, self.routes[r]);
+    }
+  };
+
+  self.setPost = function(){
+    for (var r in self.post_routes) {
+      self.app.post(r, self.post_routes[r]);
+    }
+  };
+
+  self.initializeServer = function() {
+    self.app = express();
+    self.app.use(bodyParser.urlencoded({ extended: true }));
+    self.app.use(bodyParser.json());
+
+    self.createRoutes();
+    self.setHeader();
+    self.setPublic();
+    self.setGet();
+    self.setPost();
+  };
+
   self.initialize = function() {
     self.setupVariables();
     self.populateCache();
-    self.setupTerminationHandlers();
 
-    // Create the express server and routes.
     self.initializeServer();
   };
 
-
-  /**
-   *  Start the server (starts up the sample application).
-   */
   self.start = function() {
     process.on('uncaughtException', function(ex) {
       console.log("EXCEPTION");
@@ -202,13 +155,9 @@ var SampleApp = function() {
     });
   };
 
-};   /*  Sample Application.  */
+};
 
 
-
-/**
- *  main():  Main code.
- */
 var zapp = new SampleApp();
 zapp.initialize();
 zapp.start();
