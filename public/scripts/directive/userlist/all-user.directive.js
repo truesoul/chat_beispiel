@@ -8,7 +8,7 @@
     function allUserDirective(DataService) {
         return {
             restrict: 'E',
-            templateUrl: './public/templates/directive/all-user.directive.html',
+            templateUrl: './public/scripts/directive/userlist/all-user.directive.html',
             controller: function ($scope) {
                 $scope.allusers = function () {
                     return DataService.getAllUser();
