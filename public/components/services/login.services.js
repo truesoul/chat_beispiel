@@ -13,7 +13,7 @@
             login: function (username, password, success, error){
                 var request = $http({
                     method: "post",
-                    url: UrlToServerService.getUrlFromServer()+"/login",
+                    url: UrlToServerService.UrlFromServer+"/login",
                     data: {username: username, password: password},
                     headers: {'Content-Type': 'application/json; charset=UTF-8'}
                 });
@@ -38,7 +38,7 @@
             logout: function (success, error) {
                 var request = $http({
                     method: "post",
-                    url: UrlToServerService.getUrlFromServer()+"/logout",
+                    url: UrlToServerService.UrlFromServer+"/logout",
                     data: {token: token},
                     headers: {'Content-Type': 'application/json; charset=UTF-8'}
                 });
