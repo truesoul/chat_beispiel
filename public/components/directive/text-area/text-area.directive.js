@@ -8,7 +8,7 @@
     function textAreaDirective(ChatService) {
         return {
             restrict: 'E',
-            templateUrl: './public/scripts/directive/text-area/text-area.directive.html',
+            templateUrl: './public/components/directive/text-area/text-area.directive.html',
             controller: function ($scope) {
 
                 $scope.selectedColor = '#000000';
