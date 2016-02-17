@@ -6,7 +6,7 @@
     function textAreaDirective() {
         return {
             restrict: 'E',
-            templateUrl: './public/templates/directive/text-area.directive.html',
+            templateUrl: './public/scripts/directive/text-area/text-area.directive.html',
             controller: function ($scope) {
 
                 $scope.selectedColor = '#000000';
