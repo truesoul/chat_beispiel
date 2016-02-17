@@ -13,7 +13,7 @@
     	 
     	function chat(){
 			return {
-				templateUrl: './public/templates/chat-tpl.html',
+				templateUrl: './public/scripts/controller/chat/chat-tpl.html',
 				controller: 'ChatController'
 			}
 		};
