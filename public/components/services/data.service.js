@@ -10,7 +10,7 @@
 
         var service = {
             loadUserData: function (){
-                $http.get(UrlToServerService.getUrlFromServer()+"/alluser").
+                $http.get(UrlToServerService.UrlFromServer+"/alluser").
                 success(function(result, status, headers, config) {
                     if(result.data){
                         users = result.data;
