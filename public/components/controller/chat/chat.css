@@ -1,0 +1,11 @@
+.chat-base table tr td:first-child{
+    width: 60%;
+}
+
+.chat-base table tr td:last-child{
+    vertical-align: top;
+}
+
+.chat-base h3{
+    text-align: center;
+}

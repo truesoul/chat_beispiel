@@ -1,12 +1,17 @@
-<h3>Alle angemeldeten Benutzer:</h3>
-<table>
-    <tr>
-        <td>
-            <input type="text" data-ng-model="query">
-        </td>
-    </tr>
-
-    <tr data-ng-repeat="user in allusers() | filter:query track by $index">
-        <td>{{user}}</td>
-    </tr>
-</table>
+<div class="user-list-base">
+    <h3>Alle angemeldeten Benutzer:</h3>
+    <table>
+        <tr class="user-list-search-base">
+            <td>
+                <input type="text" data-ng-model="query">
+            </td>
+        </tr>
+        <tr >
+            <td>
+                <div class="user-list-base-content">
+                    <p data-ng-repeat="user in allusers() | filter:query track by $index">{{user}}</p>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

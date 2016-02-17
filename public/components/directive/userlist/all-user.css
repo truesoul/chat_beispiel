@@ -1,0 +1,29 @@
+.user-list-base {
+    padding-left: 10px;
+    height: 400px;
+}
+
+.user-list-search-base input[type=text]{
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+    margin-bottom: 6px;
+}
+
+.user-list-base-content{
+    border: 1px solid black;
+    max-height: 300px;
+    height:300px;
+    overflow-y: auto;
+    width: 100%;
+    padding-top: 6px;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+}
+
+.user-list-base-content p{
+    margin: 1px;
+    border-bottom: 1px solid gray;
+}

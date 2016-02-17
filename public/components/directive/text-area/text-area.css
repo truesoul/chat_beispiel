@@ -1,0 +1,43 @@
+.text-area-base{
+
+}
+
+
+#textArea {
+    max-width: 400px;
+    max-height: 200px;
+    width: 400px;
+    height: 200px;
+    border: 1px solid black;
+    overflow: auto;
+}
+
+
+.text-area-color-base{
+    height: 40px;
+    margin-top: 6px;
+}
+
+.text-area-color-base input[type=color]{
+    float: right;
+    width: 20%;
+    padding: 0px;
+    border: none;
+}
+
+.text-area-color-base input[type=color]:hover{
+    cursor: default;
+    cursor: pointer;
+}
+
+.text-area-message-base {
+    border-top: 1px solid black;
+    padding-top: 6px;
+}
+
+.text-area-message-base input[type=text]{
+    width: 60%;
+}
+.text-area-message-base input[type=button]{
+    float: right;
+}
