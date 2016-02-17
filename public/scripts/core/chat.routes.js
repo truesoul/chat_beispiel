@@ -14,7 +14,7 @@
     	 
     	function chat($httpProvider){
 			return {
-				templateUrl: './public/templates/chat-tpl.html',
+				templateUrl: './public/scripts/controller/chat/chat-tpl.html',
 				controller: 'ChatController',
 				resolve: {
 					authorize:function($http, UrlToServerService) {
@@ -26,7 +26,7 @@
 
 		function login(){
 			return {
-				templateUrl: './public/templates/login-tpl.html',
+				templateUrl: './public/scripts/controller/login/login-tpl.html',
 				controller: 'LoginController'
 			}
 		};
