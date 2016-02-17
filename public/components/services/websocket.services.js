@@ -12,7 +12,7 @@
 
         var service = {
             connect: function (){
-                ws = new WebSocket(UrlToServerService.getUrlFromWebSocket());
+                ws = new WebSocket(UrlToServerService.UrlFromWebSocket);
                 ws.onopen = function(data){
                     console.log("Socket has been opened!");
                     isOpen = true;
