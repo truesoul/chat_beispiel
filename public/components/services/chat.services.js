@@ -13,7 +13,7 @@
                 if(!UtilService.isStringEmpty(input)){
                     var request = $http({
                         method: "post",
-                        url: UrlToServerService.getUrlFromServer()+"/addcomment",
+                        url: UrlToServerService.UrlFromServer+"/addcomment",
                         data: {token: localStorage.getItem("token"), message: input, color: color},
                         headers: {'Content-Type': 'application/json; charset=UTF-8'}
                     });
