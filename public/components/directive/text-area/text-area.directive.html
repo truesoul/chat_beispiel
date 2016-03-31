@@ -1,15 +1,17 @@
 <div class="text-area-base">
-    <div id="textArea" ></div>
+    <div id="textArea" class="form-control" ></div>
 
     <div class="text-area-color-base" >
         <label for="color-selection">Farbe:</label>
-        <input id="color-selection" type="color" data-ng-model="selectedColor">
+        <input id="color-selection"  type="color" data-ng-model="selectedColor">
     </div>
 
     <div class="text-area-message-base">
-        <label for="inputText">Nachricht:</label>
-        <input id="inputText" type="text" data-ng-model="inputText" enter-press="onSend">
-        <input type="button" data-ng-click="onSend()" value="Senden">
+        <div>
+            <label for="inputText">Nachricht:</label>
+            <input id="inputText" class="form-control" type="text" data-ng-model="inputText" enter-press="onSend">
+        </div>
+        <input type="button" class="btn btn-default" data-ng-click="onSend()" value="Senden">
     </div>
 
 </div>

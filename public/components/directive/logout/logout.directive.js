@@ -8,7 +8,7 @@
     function logoutDirective(LoginService, $location) {
         return {
             restrict: 'E',
-            template: '<input type="button" data-ng-click="logout()" value="Abmelden" data-ng-if="isLogin()" >',
+            template: '<input type="button" class="btn btn-primary" data-ng-click="logout()" value="Abmelden" data-ng-if="isLogin()" >',
             controller: function ($scope) {
                 $scope.isLogin = function () {
                     return LoginService.isLogin();

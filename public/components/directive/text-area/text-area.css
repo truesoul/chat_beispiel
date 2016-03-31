@@ -4,11 +4,11 @@
 
 
 #textArea {
-    max-width: 400px;
+    max-width: 500px;
     max-height: 200px;
-    width: 400px;
+    width: 500px;
     height: 200px;
-    border: 1px solid black;
+    border: 1px solid #ccc;
     overflow: auto;
 }
 
@@ -35,9 +35,11 @@
     padding-top: 6px;
 }
 
-.text-area-message-base input[type=text]{
-    width: 60%;
+.text-area-message-base div{
+    width: 80%;
+    float: left;
 }
 .text-area-message-base input[type=button]{
     float: right;
+    margin-top: 21px;
 }

@@ -3,12 +3,12 @@
     <table>
         <tr class="user-list-search-base">
             <td>
-                <input type="text" data-ng-model="query">
+                <input type="text" class="form-control" data-ng-model="query">
             </td>
         </tr>
         <tr >
             <td>
-                <div class="user-list-base-content">
+                <div class="user-list-base-content form-control">
                     <p data-ng-repeat="user in allusers() | filter:query track by $index">{{user}}</p>
                 </div>
             </td>
