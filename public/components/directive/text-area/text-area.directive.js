@@ -10,7 +10,7 @@
             restrict: 'E',
             templateUrl: './public/components/directive/text-area/text-area.directive.html',
             controller: function ($scope) {
-
+                $scope.inputText = '';
                 $scope.selectedColor = '#000000';
 
                 function clearInput(){

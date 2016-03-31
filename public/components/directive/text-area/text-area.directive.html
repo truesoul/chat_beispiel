@@ -11,7 +11,7 @@
             <label for="inputText">Nachricht:</label>
             <input id="inputText" class="form-control" type="text" data-ng-model="inputText" enter-press="onSend">
         </div>
-        <input type="button" class="btn btn-default" data-ng-click="onSend()" value="Senden">
+        <input type="button" class="btn btn-default" data-ng-click="onSend()" value="Senden" data-ng-disabled="inputText.length == 0">
     </div>
 
 </div>
