@@ -6,8 +6,10 @@
     loginController.$inject = ['$scope', '$location', 'LoginService', 'UtilService'];
 
     function loginController($scope, $location, LoginService, UtilService) {
-        $scope.username = "";
-        $scope.password = "";
+        var vm = this;
+
+        vm.username = "";
+        vm.password = "";
 
         function success(){
             $location.path('/chat');
@@ -17,9 +19,9 @@
             $location.path('/error');
         }
 
-        $scope.sendToServer = function () {
-            if(!UtilService.isStringEmpty($scope.username) && !UtilService.isStringEmpty($scope.password)){
-                LoginService.login($scope.username, $scope.password, success, error);
+        vm.sendToServer = function () {
+            if(!UtilService.isStringEmpty(vm.username) && !UtilService.isStringEmpty(vm.password)){
+                LoginService.login(vm.username, vm.password, success, error);
             }
         }
 
