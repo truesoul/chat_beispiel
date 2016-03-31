@@ -15,6 +15,10 @@
 
                 function clearInput(){
                     $scope.inputText = '';
+                    var input = document.getElementById('inputText');
+                    if(input){
+                        input.focus();
+                    }
                 }
 
                 function createElementInDiv(input, color){
