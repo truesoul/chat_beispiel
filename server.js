@@ -20,6 +20,12 @@ var SampleApp = function() {
 
   self.createRoutes = function() {
     self.routes = { };
+
+    self.routes['/'] = function(req, res) {
+      res.setHeader('Content-Type', 'text/html');
+      res.send(fs.readFileSync('./index.html'));
+    };
+
   };
 
   self.setHeader = function(){
