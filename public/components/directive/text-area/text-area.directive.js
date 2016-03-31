@@ -27,6 +27,7 @@
                     span.appendChild(node);
                     span.appendChild(br);
                     area.appendChild(span);
+                    scrollToBottom();
                 }
 
 
