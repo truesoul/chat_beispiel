@@ -25,6 +25,11 @@ var SampleApp = function() {
   self.createRoutes = function() {
     self.routes = { };
 
+    self.routes['/'] = function(req, res) {
+      res.setHeader('Content-Type', 'text/html');
+      res.send(fs.readFileSync('./index.html'));
+    };
+
     self.routes['/isauth'] = function(req, res) {
       var token = req.headers.authorization;
 
