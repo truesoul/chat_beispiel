@@ -10,7 +10,7 @@
 		$routeProvider
 	    	.when('/chat', chat($httpProvider))
 			.when('/login', login())
-			.otherwise({redirectTo: '/'});
+			.otherwise({redirectTo: '/login'});
     	 
     	function chat($httpProvider){
 			return {
@@ -18,7 +18,7 @@
 				controller: 'ChatController',
 				resolve: {
 					authorize:function($http, UrlToServerService) {
-						return $http.get(UrlToServerService.getUrlFromServer()+"/isauth");
+						return $http.get(UrlToServerService.UrlFromServer+"/isauth");
 					}
 				}
 			}
