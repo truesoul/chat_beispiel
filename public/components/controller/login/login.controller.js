@@ -19,8 +19,8 @@
             $location.path('/error');
         }
 
-        $scope.sendToServer = function () {
-            if(!UtilService.isStringEmpty($scope.username) && !UtilService.isStringEmpty($scope.password)){
+        vm.sendToServer = function () {
+            if(!UtilService.isStringEmpty(vm.username) && !UtilService.isStringEmpty(vm.password)){
                 LoginService.login(vm.username, vm.password, success, error);
             }
         }
