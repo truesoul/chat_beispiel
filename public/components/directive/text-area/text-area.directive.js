@@ -29,6 +29,7 @@
                     span.appendChild(node);
                     span.appendChild(br);
                     area.appendChild(span);
+                    scrollToBottom();
                 }
 
                 function scrollToBottom(){
@@ -39,7 +40,6 @@
                 $scope.onSend = function () {
                     if(!isEmpty($scope.inputText)){
                         createElementInDiv();
-                        scrollToBottom();
                     }
                     clearInput();
                 }
