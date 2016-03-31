@@ -19,7 +19,7 @@
             $location.path('/error');
         }
 
-        $scope.sendToServer = function () {
+        vm.sendToServer = function () {
             if(!UtilService.isStringEmpty(vm.username) && !UtilService.isStringEmpty(cm.password)){
                 LoginService.login(vm.username, vm.password, success, error);
             }
