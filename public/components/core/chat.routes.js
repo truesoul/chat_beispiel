@@ -38,6 +38,10 @@
 					var token = localStorage.getItem("token");
 					if(token){
 						config.headers.Authorization = token;
+
+						if($location.path() == '/login'){
+							$location.path("/chat");
+						}
 					}
 
 					return config;
