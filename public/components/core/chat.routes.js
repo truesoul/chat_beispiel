@@ -10,7 +10,7 @@
 		$routeProvider
 	    	.when('/chat', chat($httpProvider))
 			.when('/login', login())
-			.otherwise({redirectTo: '/'});
+			.otherwise({redirectTo: '/login'});
     	 
     	function chat($httpProvider){
 			return {
