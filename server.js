@@ -20,7 +20,7 @@ var SampleApp = function() {
     if (typeof self.ipaddress === "undefined") {
       console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
       self.ipaddress = "127.0.0.1";
-    };
+    }
   };
 
   self.createRoutes = function() {
